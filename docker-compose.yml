@@ -1,0 +1,7 @@
+services:
+  carebridge-sentinel:
+    build: .
+    environment:
+      CAREBRIDGE_SYNTHETIC_FHIR: "true"
+    ports:
+      - "8000:8000"

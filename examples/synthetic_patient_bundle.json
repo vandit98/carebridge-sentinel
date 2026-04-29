@@ -1,0 +1,668 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synthetic-patient-001",
+        "name": [
+          {
+            "use": "official",
+            "family": "Rivera",
+            "given": ["Elena"]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1957-09-12"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "enc-ed-001",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "EMER",
+          "display": "emergency"
+        },
+        "type": [
+          {
+            "text": "Emergency department visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        },
+        "period": {
+          "start": "2026-04-18T09:15:00Z",
+          "end": "2026-04-18T16:30:00Z"
+        },
+        "reasonCode": [
+          {
+            "text": "Shortness of breath and leg swelling"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-hf",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "code": {
+          "text": "Heart failure with reduced ejection fraction"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-dm2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "code": {
+          "text": "Type 2 diabetes mellitus"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-ckd",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "code": {
+          "text": "Chronic kidney disease stage 3"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-lisinopril",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "text": "lisinopril 20 mg oral tablet"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-furosemide",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "text": "furosemide 40 mg oral tablet"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-insulin",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "text": "insulin glargine 100 unit/mL injection"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-apixaban",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "text": "apixaban 5 mg oral tablet"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-ibuprofen",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "text": "ibuprofen 600 mg oral tablet"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-penicillin",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "text": "penicillin allergy"
+        },
+        "patient": {
+          "reference": "Patient/synthetic-patient-001"
+        },
+        "criticality": "high"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-a1c",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4548-4",
+              "display": "Hemoglobin A1c/Hemoglobin.total in Blood"
+            }
+          ],
+          "text": "Hemoglobin A1c"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        },
+        "effectiveDateTime": "2026-04-17T11:00:00Z",
+        "valueQuantity": {
+          "value": 8.9,
+          "unit": "%"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-egfr",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "33914-3",
+              "display": "Glomerular filtration rate/1.73 sq M.predicted"
+            }
+          ],
+          "text": "eGFR"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        },
+        "effectiveDateTime": "2026-04-18T10:20:00Z",
+        "valueQuantity": {
+          "value": 38,
+          "unit": "mL/min/1.73m2"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-potassium",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Potassium [Moles/volume] in Serum or Plasma"
+            }
+          ],
+          "text": "Potassium"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        },
+        "effectiveDateTime": "2026-04-18T10:20:00Z",
+        "valueQuantity": {
+          "value": 5.5,
+          "unit": "mmol/L"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-sbp",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8480-6",
+              "display": "Systolic blood pressure"
+            }
+          ],
+          "text": "Systolic blood pressure"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        },
+        "effectiveDateTime": "2026-04-18T10:10:00Z",
+        "valueQuantity": {
+          "value": 152,
+          "unit": "mm[Hg]"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-dbp",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8462-4",
+              "display": "Diastolic blood pressure"
+            }
+          ],
+          "text": "Diastolic blood pressure"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        },
+        "effectiveDateTime": "2026-04-18T10:10:00Z",
+        "valueQuantity": {
+          "value": 92,
+          "unit": "mm[Hg]"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "doc-care-management-note",
+        "status": "current",
+        "type": {
+          "text": "Care management transition note"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-001"
+        },
+        "date": "2026-04-18T15:45:00Z",
+        "description": "Synthetic care management transition note",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "title": "Synthetic transition note",
+              "data": "Q2FyZSBtYW5hZ2VtZW50IG5vdGU6IHBhdGllbnQgcmVwb3J0cyB0cmFuc3BvcnRhdGlvbiBiYXJyaWVyIGFuZCBkaWQgbm90IHBpY2sgdXAgZnVyb3NlbWlkZSBkdWUgdG8gY29zdC4gUGF0aWVudCBsaXZlcyBhbG9uZSBhbmQgaXMgbm90IHN1cmUgd2hlbiB0byByZXR1cm4gZm9yIHdvcnNlbmluZyBzeW1wdG9tcy4="
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synthetic-patient-002",
+        "name": [
+          {
+            "use": "official",
+            "family": "Chen",
+            "given": ["James"]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1953-02-04"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "enc-inpatient-002",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP",
+          "display": "inpatient encounter"
+        },
+        "type": [
+          {
+            "text": "Hospital admission"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/synthetic-patient-002"
+        },
+        "period": {
+          "start": "2026-04-20T14:00:00Z",
+          "end": "2026-04-23T11:15:00Z"
+        },
+        "reasonCode": [
+          {
+            "text": "COPD exacerbation and pneumonia"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-copd-002",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "code": {
+          "text": "Chronic obstructive pulmonary disease"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-002"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-afib-002",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "code": {
+          "text": "Atrial fibrillation"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-002"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-warfarin-002",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "text": "warfarin 5 mg oral tablet"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-002"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-naproxen-002",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "text": "naproxen 500 mg oral tablet"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-002"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-prednisone-002",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "text": "prednisone 40 mg oral tablet"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-002"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-hgb-002",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ],
+          "text": "Hemoglobin"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-002"
+        },
+        "effectiveDateTime": "2026-04-23T08:00:00Z",
+        "valueQuantity": {
+          "value": 9.2,
+          "unit": "g/dL"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "doc-discharge-note-002",
+        "status": "current",
+        "type": {
+          "text": "Synthetic discharge planning note"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-002"
+        },
+        "date": "2026-04-23T10:30:00Z",
+        "description": "Synthetic discharge planning note",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "title": "lives alone and confused about inhaler instructions"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "synthetic-patient-003",
+        "name": [
+          {
+            "use": "official",
+            "family": "Patel",
+            "given": ["Amara"]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1981-07-19"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "enc-urgent-003",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "text": "Urgent care visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/synthetic-patient-003"
+        },
+        "period": {
+          "start": "2026-04-25T12:00:00Z",
+          "end": "2026-04-25T13:10:00Z"
+        },
+        "reasonCode": [
+          {
+            "text": "Medication refill and blood pressure check"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-htn-003",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "code": {
+          "text": "Hypertension"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-003"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-amlodipine-003",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "text": "amlodipine 5 mg oral tablet"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-003"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-sbp-003",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8480-6",
+              "display": "Systolic blood pressure"
+            }
+          ],
+          "text": "Systolic blood pressure"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-003"
+        },
+        "effectiveDateTime": "2026-04-25T12:05:00Z",
+        "valueQuantity": {
+          "value": 128,
+          "unit": "mm[Hg]"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-dbp-003",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8462-4",
+              "display": "Diastolic blood pressure"
+            }
+          ],
+          "text": "Diastolic blood pressure"
+        },
+        "subject": {
+          "reference": "Patient/synthetic-patient-003"
+        },
+        "effectiveDateTime": "2026-04-25T12:05:00Z",
+        "valueQuantity": {
+          "value": 78,
+          "unit": "mm[Hg]"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "appt-followup-003",
+        "status": "booked",
+        "description": "Primary care follow-up",
+        "start": "2026-04-30T09:00:00Z",
+        "participant": [
+          {
+            "actor": {
+              "reference": "Patient/synthetic-patient-003"
+            },
+            "status": "accepted"
+          }
+        ]
+      }
+    }
+  ]
+}
