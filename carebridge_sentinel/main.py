@@ -33,7 +33,7 @@ async def healthz() -> dict[str, str]:
     return {"status": "ok", "service": "carebridge-sentinel-mcp"}
 
 
-@app.get("/", response_class=HTMLResponse)
+@app.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
 async def landing_page() -> str:
     return """
     <!doctype html>
