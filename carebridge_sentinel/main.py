@@ -1,10 +1,20 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
+from pydantic import BaseModel, Field
 
 from carebridge_sentinel.mcp_instance import mcp
+from carebridge_sentinel.tools import (
+    BuildMedicationSafetyBrief,
+    CreatePostDischargeRescuePlan,
+    DraftPatientOutreach,
+    FindLongitudinalCareGaps,
+    GenerateTransitionOfCareBrief,
+    GenerateTransitionTaskBundle,
+    PrioritizeTransitionPanel,
+)
 
 
 @asynccontextmanager
@@ -28,9 +38,134 @@ app.add_middleware(
 )
 
 
+class PatientRequest(BaseModel):
+    patientId: str | None = Field(
+        default=None,
+        description="Optional FHIR Patient.id. In synthetic demo mode this can be omitted.",
+        examples=["synthetic-patient-001"],
+    )
+    lookbackDays: int = Field(
+        default=45,
+        ge=7,
+        le=730,
+        description="Number of days of patient context to emphasize.",
+    )
+
+
+class OutreachRequest(PatientRequest):
+    channel: str = Field(
+        default="phone",
+        description="Draft channel. Use phone, portal, or sms.",
+        examples=["phone"],
+    )
+
+
+class PanelRequest(BaseModel):
+    patientIds: str | None = Field(
+        default=None,
+        description="Optional comma-separated FHIR Patient.id values. In synthetic demo mode this can be omitted.",
+        examples=["synthetic-patient-001,synthetic-patient-002"],
+    )
+    lookbackDays: int = Field(
+        default=45,
+        ge=7,
+        le=180,
+        description="Number of days of recent transition context to evaluate.",
+    )
+    maxPatients: int = Field(
+        default=10,
+        ge=1,
+        le=25,
+        description="Maximum number of patients to rank.",
+    )
+
+
+class PluginResponse(BaseModel):
+    result: str
+    safetyNote: str = (
+        "Clinician-review decision support only. The public demo uses synthetic/de-identified data "
+        "and does not store patient records, tokens, or PHI."
+    )
+
+
 @app.get("/healthz")
 async def healthz() -> dict[str, str]:
     return {"status": "ok", "service": "carebridge-sentinel-mcp"}
+
+
+@app.get("/api/plugin/health")
+async def plugin_health() -> dict[str, str]:
+    return {
+        "status": "ok",
+        "service": "carebridge-sentinel-plugin-api",
+        "mcpEndpoint": "/mcp",
+        "openApi": "/openapi.json",
+    }
+
+
+@app.post("/api/plugin/prioritize-transition-panel", response_model=PluginResponse)
+async def prioritize_transition_panel(request: PanelRequest) -> PluginResponse:
+    result = await PrioritizeTransitionPanel(
+        patientIds=request.patientIds,
+        lookbackDays=request.lookbackDays,
+        maxPatients=request.maxPatients,
+    )
+    return PluginResponse(result=result)
+
+
+@app.post("/api/plugin/transition-brief", response_model=PluginResponse)
+async def transition_brief(request: PatientRequest) -> PluginResponse:
+    result = await GenerateTransitionOfCareBrief(
+        patientId=request.patientId,
+        lookbackDays=request.lookbackDays,
+    )
+    return PluginResponse(result=result)
+
+
+@app.post("/api/plugin/rescue-plan", response_model=PluginResponse)
+async def rescue_plan(request: PatientRequest) -> PluginResponse:
+    result = await CreatePostDischargeRescuePlan(
+        patientId=request.patientId,
+        lookbackDays=request.lookbackDays,
+    )
+    return PluginResponse(result=result)
+
+
+@app.post("/api/plugin/medication-safety", response_model=PluginResponse)
+async def medication_safety(request: PatientRequest) -> PluginResponse:
+    result = await BuildMedicationSafetyBrief(
+        patientId=request.patientId,
+        lookbackDays=request.lookbackDays,
+    )
+    return PluginResponse(result=result)
+
+
+@app.post("/api/plugin/care-gaps", response_model=PluginResponse)
+async def care_gaps(request: PatientRequest) -> PluginResponse:
+    result = await FindLongitudinalCareGaps(
+        patientId=request.patientId,
+        lookbackDays=request.lookbackDays,
+    )
+    return PluginResponse(result=result)
+
+
+@app.post("/api/plugin/patient-outreach", response_model=PluginResponse)
+async def patient_outreach(request: OutreachRequest) -> PluginResponse:
+    result = await DraftPatientOutreach(
+        patientId=request.patientId,
+        channel=request.channel,
+        lookbackDays=request.lookbackDays,
+    )
+    return PluginResponse(result=result)
+
+
+@app.post("/api/plugin/task-bundle", response_model=PluginResponse)
+async def task_bundle(request: PatientRequest) -> PluginResponse:
+    result = await GenerateTransitionTaskBundle(
+        patientId=request.patientId,
+        lookbackDays=request.lookbackDays,
+    )
+    return PluginResponse(result=result)
 
 
 @app.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
