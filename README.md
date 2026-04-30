@@ -89,6 +89,18 @@ export CAREBRIDGE_ALLOW_INSECURE_FHIR=true
 6. Publish the server to the Prompt Opinion Marketplace.
 7. Demo a Prompt Opinion agent invoking the tools inside the platform.
 
+## Public Deployment
+
+The repo includes `render.yaml` for Render Blueprint deployment.
+
+1. Connect the GitHub repo to Render.
+2. Create a new Blueprint or Web Service from the repo.
+3. Render uses:
+   - Build: `pip install -r requirements.txt`
+   - Start: `uvicorn carebridge_sentinel.main:app --host 0.0.0.0 --port $PORT`
+4. Keep `CAREBRIDGE_SYNTHETIC_FHIR=true` for the public demo endpoint so visitors can try tools without PHI.
+5. Use `https://YOUR_RENDER_URL/mcp` as the Prompt Opinion MCP server URL.
+
 The server advertises this MCP capability extension:
 
 ```json
